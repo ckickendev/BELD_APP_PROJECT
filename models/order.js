@@ -9,13 +9,6 @@ class Order {
   }
 
   get toDate() {
-    // return this.date.toLocaleDateString("en-US", {
-    //   year: "numberic",
-    //   month: "long",
-    //   day: "numberic",
-    //   hour: "numberic",
-    //   minute: "numberic",
-    // });
     return moment(this.date).format("YYYY-MM-DD  , hh:mm:ss");
   }
 }

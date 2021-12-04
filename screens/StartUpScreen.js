@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react'
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-// import { AsyncStorage } from '@react-native-async-storage/async-storage'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from 'react-redux'
 import { authenticate } from '../store/actions/auth';
+import * as authAction from '../store/actions/auth';
 
 export default function StartUpScreen(props) {
     const dispatch = useDispatch();
     useEffect(() => {
+        // console.log("alo");
         const tryLogin = async () => {
             const userData = await AsyncStorage.getItem('userData');
             if(!userData){
@@ -15,10 +16,10 @@ export default function StartUpScreen(props) {
                 return;
             }
             const transformedData = JSON.parse(userData);
-            const {token, userId, expiry } = transformedData;
-            console.log(expiry);
+            const {token, userId, expiry, email } = transformedData;
+            // console.log("Asyn storage: ", token, userId, expiry, email);
             const expirationDate = new Date(expiry);
-            console.log(expirationDate);
+            // console.log(expirationDate);
             if(expirationDate <= new Date() || !token || !userId){
                 props.navigation.navigate("Auth");
                 return;
@@ -26,7 +27,8 @@ export default function StartUpScreen(props) {
 
             const expirationTime = expirationDate.getTime() - new Date().getTime();
             
-            props.navigation.navigate("Shop");
+            dispatch(authAction.setUserLoginWithOnlyEmail(email));
+            props.navigation.navigate("AppBELD");
             dispatch(authenticate(userId, token, expirationTime));
         };
         tryLogin();

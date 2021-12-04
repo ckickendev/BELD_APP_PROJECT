@@ -2,17 +2,16 @@ import React, { useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { NavigationActions } from "react-navigation";
 import { useSelector } from "react-redux";
-import ShopNavigator from "./ShopNavigator";
+import AppNavigator from "./AppNavigator";
 
 export default function NavigationContainer(props) {
   const navRef = useRef();
   const isAuth = useSelector((state) => {
+    // console.log(state.auth);
     return !!state.auth.token;
   });
   useEffect(() => {
-    console.log("dang check auth");
     if (!isAuth) {
-      console.log("Gia tri cua auth la ", isAuth);
       navRef.current.dispatch(
         NavigationActions.navigate({ routeName: "Auth" })
       );
@@ -21,7 +20,7 @@ export default function NavigationContainer(props) {
       console.log("Gia tri cua auth la true");
     }
   }, [isAuth]);
-  return <ShopNavigator ref={navRef} />;
+  return <AppNavigator ref={navRef} />;
 }
 
 const styles = StyleSheet.create({});

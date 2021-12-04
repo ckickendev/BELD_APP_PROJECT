@@ -1,6 +1,8 @@
 import React, { useCallback, useReducer, useEffect } from "react";
 import {
+  ActivityIndicator,
   Alert,
+  Button,
   ScrollView,
   StyleSheet,
   Text,
@@ -46,15 +48,18 @@ export default function AuthScreen(props) {
   const [error, setError] = useState();
   const authHandler = async () => {
     let action;
-    action = AuthAction.login(
+    action = AuthAction.signup(
       formState.inputValue.email,
-      formState.inputValue.password
+      formState.inputValue.password,
+      formState.inputValue.mssv,
+      formState.inputValue.fullname
     );
     setError(null);
     setIsLoaded(true);
     try {
       await dispatch(action);
-      await props.navigation.navigate("Main");
+      await console.log("Action shop");
+      await props.navigation.navigate("Shop");
     } catch (err) {
       setError(err.message);
       setIsLoaded(false);
@@ -81,12 +86,18 @@ export default function AuthScreen(props) {
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValue: {
+      mssv: "",
+      fullname: "",
       email: "",
       password: "",
+      repassword: "",
     },
     inputValidinities: {
+      mssv: false,
+      fullname: false,
       email: false,
       password: false,
+      repassword: false,
     },
     formIsValid: false,
   });
@@ -96,6 +107,35 @@ export default function AuthScreen(props) {
         <View style={styles.ScrollView}>
           <ScrollView>
             <Input
+              clearButtonMode="always"
+              id="mssv"
+              label="Enter IDS"
+              keyboardType="default"
+              placeholder="Enter your student ID"
+              required
+              autoCapitalize="none"
+              errorText="Please enter your student Id!"
+              onInputChange={inputChangeHandler}
+              initialValue=""
+              style={styles.styleInputAuth}
+            />
+            <Input
+              clearButtonMode="always"
+              id="fullname"
+              fullname
+              label="Enter fullname"
+              keyboardType="default"
+              placeholder="Enter your fullname"
+              required
+              // fullname
+              autoCapitalize="none"
+              errorText="Please enter a valid fullname!"
+              onInputChange={inputChangeHandler}
+              initialValue=""
+              style={styles.styleInputAuth}
+            />
+            <Input
+              clearButtonMode="always"
               id="email"
               label="Enter email"
               keyboardType="email-address"
@@ -103,18 +143,20 @@ export default function AuthScreen(props) {
               required
               email
               autoCapitalize="none"
-              errorText="Please enter a valid email address!"
+              errorText="Enter FPT email !"
               onInputChange={inputChangeHandler}
               initialValue=""
               style={styles.styleInputAuth}
             />
             <Input
+              clearButtonMode="always"
               id="password"
               label="Password"
               keyboardType="default"
               secureTextEntry
+              // passwordRegex
               required
-              minLength={5}
+              minLength={6}
               maxLength={10}
               autoCapitalize="none"
               placeholder="Password"
@@ -123,41 +165,33 @@ export default function AuthScreen(props) {
               initialValue=""
               style={styles.styleInputAuth}
             />
+            <Input
+              clearButtonMode="always"
+              id="repassword"
+              label="RePassword"
+              keyboardType="default"
+              secureTextEntry
+              // passwordRegex
+              required
+              repassword
+              password={formState.inputValue.password}
+              minLength={6}
+              maxLength={10}
+              autoCapitalize="none"
+              placeholder="Re-Password"
+              errorText="Please enter a valid password!"
+              onInputChange={inputChangeHandler}
+              initialValue=""
+              style={styles.styleInputAuth}
+            />
             <View style={styles.buttonContainer}>
               <TouchableOpacity
-                title="LOGIN"
+                title="REGISTER"
                 color="blue"
                 onPress={authHandler}
                 style={styles.buttonLogin}
               >
-                <Text style={{ color: "white", fontSize: 18 }}>Login</Text>
-              </TouchableOpacity>
-
-              
-              <TouchableOpacity
-                title="LOGIN"
-                color="blue"
-                onPress={() => {
-                  props.navigation.navigate("AppBELD");
-                }}
-                style={styles.buttonLogin}
-              >
-                <Text style={{ color: "white", fontSize: 18 }}>Guess</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.buttonContainer}>
-              <TouchableOpacity style={{ alignItems: "center", marginTop: 10 }}>
-                <Text style={{ color: "#444" }}>
-                  Having Trouble logging in ?
-                </Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => {
-                  props.navigation.navigate("Register");
-                }}
-                style={{ alignItems: "center", marginTop: 10 }}
-              >
-                <Text style={{ color: "#444" }}>Sign Up</Text>
+                <Text style={{ color: "white", fontSize: 18 }}>Register</Text>
               </TouchableOpacity>
             </View>
           </ScrollView>
@@ -169,8 +203,7 @@ export default function AuthScreen(props) {
 
 AuthScreen.navigationOptions = (navData) => {
   return {
-    headerTitle: "Authentication",
-    headerShown: false,
+    headerTitle: "Register",
   };
 };
 
