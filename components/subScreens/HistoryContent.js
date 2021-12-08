@@ -13,6 +13,7 @@ import Card from "../UI/Card";
 import HistoryElements from "../UI/HistoryElement";
 
 import * as authAction from "../../store/actions/auth";
+import Color from "../../constants/Color";
 
 export default function HistoryContent(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,7 +24,7 @@ export default function HistoryContent(props) {
   if (props.status === 3) {
     histories = histories.filter((history) => history.type === 1);
   } else if (props.status === 2) {
-    histories = histories.filter((history) => history.type === 2);
+    histories = histories.filter((history) => history.type === 0);
   }
   const dispatch = useDispatch();
 
@@ -86,13 +87,17 @@ export default function HistoryContent(props) {
           numIcon = "hotel";
         } else if (itemData.item.service === 2) {
           numIcon = "money-bill";
+        } else if (itemData.item.service === 0) {
+          numIcon = "dollar-sign";
+        } else if (itemData.item.service === 1) {
+          numIcon = "dollar-sign";
         }
         let PosOrNeg = itemData.item.type === 1 ? "-" : "+";
         return (
           <HistoryElements
             PosOrNeg={PosOrNeg}
             nameIcon={numIcon}
-            color="red"
+            color={ itemData.item.status === 1 ? Color.success : Color.red}
             history={itemData.item}
           />
         );

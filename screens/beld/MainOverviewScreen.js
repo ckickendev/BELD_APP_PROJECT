@@ -11,12 +11,16 @@ export default function MainScreen(props) {
   const dispatch = useDispatch();
   const goToTopUp = () => {
     props.navigation.navigate("Topup");
-  }
+  };
+  const selectItemService = (service) => {
+    console.log(service);
+    props.navigation.navigate("ServiceDetail", {service : service });
+  };
   return (
     <View style={styles.screen}>
       <HeaderScreen style={{ height: 400 }} />
       <SpaceMoney goToTopUp={goToTopUp} />
-      <Services />
+      <Services selectItemService={selectItemService} />
       <Button
         title="Logout"
         onPress={() => {
@@ -28,7 +32,13 @@ export default function MainScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  screen:{
-    flex: 1
-  }
+  screen: {
+    flex: 1,
+  },
 });
+
+MainScreen.navigationOptions = (navData) => {
+  return {
+    headerShown: false,
+  };
+}

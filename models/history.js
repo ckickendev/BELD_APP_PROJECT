@@ -1,7 +1,7 @@
 import moment from "moment";
 
 class History {
-  constructor(id, idFrom, idTo, amount, name, date, type, service) {
+  constructor(id, idFrom, idTo, amount, name, date, type, service, status) {
     this.id = id;
     this.idFrom = idFrom;
     this.idTo = idTo;
@@ -10,6 +10,7 @@ class History {
     this.date = date;
     this.type = type;
     this.service = service;
+    this.status = status;
   }
 
   get toDate() {

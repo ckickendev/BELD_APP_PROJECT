@@ -7,13 +7,20 @@ import {
   Text,
   View,
 } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import Color from "../../constants/Color";
 
 export default function Card(props) {
   {
     console.log(props.img);
   }
   return (
-    <View style={{ ...styles.card, ...props.style }}>
+    <TouchableOpacity
+      style={{ ...styles.card, ...props.style }}
+      onPress={() => {
+        props.selectItemService(props.service);
+      }}
+    >
       <ImageBackground
         source={{ uri: props.img }}
         resizeMode="cover"
@@ -28,7 +35,7 @@ export default function Card(props) {
         >
           <View
             style={{
-              backgroundColor: "#FF8000",
+              backgroundColor: props.color,
               marginTop: 0,
               width: "100%",
               alignItems: "center",
@@ -52,9 +59,17 @@ export default function Card(props) {
             </View>
           </View>
         </View>
-        <Button title="Discover" color={"#FF8000"} onPress={() => {}} />
+        {props.canteens ? (
+          <Button
+            title={`${props.service.open} - ${props.service.close}`}
+            color={props.color}
+            onPress={() => {}}
+          />
+        ) : (
+          <Button title="Discover" color={props.color} onPress={() => {}} />
+        )}
       </ImageBackground>
-    </View>
+    </TouchableOpacity>
   );
 }
 

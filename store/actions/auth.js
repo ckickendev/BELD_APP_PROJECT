@@ -3,6 +3,8 @@ export const LOGOUT = "LOGOUT";
 export const USERLOGIN = "USERLOGIN";
 export const SET_SERVICE = "SET_SERVICE";
 export const SET_HISTORY = "SET_HISTORY";
+export const SET_LIST_USER = "SET_LIST_USER";
+export const SET_HISTORY_PARKING = "SET_HISTORY_PARKING";
 
 import User from "../../models/user";
 import Service from "../../models/service";
@@ -200,11 +202,10 @@ export const setUserLogin = (email, idToken, localId, expirationDate) => {
         `https://beldproapp-default-rtdb.firebaseio.com/users.json`
       );
       const resData = await response.json();
-      // console.log(resData);
+      console.log("resData", resData);
       let userLogin = {};
       for (const key in resData) {
-        // console.log(resData[key]);
-        // console.log(resData[key].email.localeCompare(email));
+        console.log("resData[key], email" + resData[key].email, email);
         if (resData[key].email.localeCompare(email) === 0) {
           userLogin = new User(
             key,
@@ -253,7 +254,6 @@ export const fetchService = () => {
         throw new Error("Some thing not good!");
       }
       const resData = await response.json();
-      // console.log("Loaded service:1 ", resData);
       const loadedServices = [];
       for (const key in resData) {
         loadedServices.push(
@@ -277,9 +277,7 @@ export const fetchService = () => {
 };
 
 export const fetchHistory = () => {
-  console.log("fetch history");
   return async (dispatchEvent, getState) => {
-    console.log("Fetch auth check: ", getState().auth)
     const userId = getState().auth.userLogin.id;
     try {
       const response = await fetch(
@@ -287,15 +285,54 @@ export const fetchHistory = () => {
       );
 
       const resData = await response.json();
-      console.log("Res Data: ", resData);
+      console.log(resData);
       const historyDatas = [];
       for (const key in resData) {
-        console.log(resData[key].idFrom + " ==== " + userId);
         if (
           resData[key].idFrom.localeCompare(userId) === 0 ||
           resData[key].idTo.localeCompare(userId) === 0
         ) {
-          // console.log("alo");
+          console.log("key", key, resData[key].idFrom, resData[key].idTo);
+          await historyDatas.push(
+            new History(
+              key,
+              resData[key].idFrom,
+              resData[key].idTo,
+              resData[key].amount,
+              resData[key].name,
+              new Date().toISOString(),
+              resData[key].type,
+              resData[key].service,
+              resData[key].status
+            )
+          );
+        }
+      }
+      await console.log("historyDatas: ", historyDatas);
+      await dispatchEvent({ type: SET_HISTORY, historyDatas: historyDatas });
+    } catch (err) {
+      throw err;
+    }
+  };
+};
+
+export const fetchHistoryParking = () => {
+  return async (dispatchEvent, getState) => {
+    const userId = getState().auth.userLogin.id;
+    try {
+      const response = await fetch(
+        `https://beldproapp-default-rtdb.firebaseio.com/histories.json`
+      );
+
+      const resData = await response.json();
+      const historyDatas = [];
+      console.log("resData", resData);
+
+      for (const key in resData) {
+        if (
+          resData[key].idFrom.localeCompare(userId) === 0 ||
+          resData[key].idTo.localeCompare(userId) === 0
+        ) {
           historyDatas.push(
             new History(
               key,
@@ -305,15 +342,51 @@ export const fetchHistory = () => {
               resData[key].name,
               new Date().toISOString(),
               resData[key].type,
-              resData[key].service
+              resData[key].service,
+              resData[key].status
             )
           );
         }
       }
-      console.log(historyDatas);
-      dispatchEvent({ type: SET_HISTORY, historyDatas: historyDatas });
+      console.log("historyDatas", historyDatas);
+      dispatchEvent({ type: SET_HISTORY_PARKING, historyDatas: historyDatas });
     } catch (err) {
       throw err;
+    }
+  };
+};
+
+export const fetchUsers = () => {
+  console.log("Fetch User ne");
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://beldproapp-default-rtdb.firebaseio.com/users.json"
+      );
+      if (!response.ok) {
+        throw new Error("Some thing not good!");
+      }
+      const resData = await response.json();
+      const listUsers = [];
+      for (const key in resData) {
+        listUsers.push(
+          new User(
+            key,
+            resData[key].idstudent,
+            resData[key].balance,
+            resData[key].email,
+            resData[key].fullname,
+            resData[key].avatar
+          )
+        );
+      }
+      console.log("List user truoc khi set: ", listUsers);
+      dispatch({
+        type: SET_LIST_USER,
+        listUsers: listUsers,
+      });
+    } catch (error) {
+      throw error;
     }
   };
 };

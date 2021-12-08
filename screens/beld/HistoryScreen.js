@@ -77,6 +77,7 @@ const styles = StyleSheet.create({
   },
   action: {
     marginTop: 30,
+    marginBottom: 50  ,
     marginHorizontal: 60,
     backgroundColor: "#ddd",
     flexDirection: "row",

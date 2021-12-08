@@ -1,4 +1,13 @@
-import { AUTHENTICATE, LOGOUT, USERLOGIN, SET_SERVICE, SET_HISTORY } from "../actions/auth";
+import {
+  AUTHENTICATE,
+  LOGOUT,
+  USERLOGIN,
+  SET_SERVICE,
+  SET_HISTORY,
+  SET_LIST_USER,
+  SET_HISTORY_PARKING
+} from "../actions/auth";
+import { UPDATE_USER_ACOUNT_MONEY } from "../actions/service";
 
 const initialState = {
   token: null,
@@ -6,6 +15,8 @@ const initialState = {
   userLogin: {},
   listService: [],
   listHistories: [],
+  listUsers: [],
+  listHistoriesParking: []
 };
 
 export default (state = initialState, action) => {
@@ -23,11 +34,9 @@ export default (state = initialState, action) => {
       }
     }
     case LOGOUT: {
-      // console.log("authen token logout:", action.token);
       return initialState;
     }
     case SET_SERVICE:{
-      // console.log("List Service in redux: ",action.listService);
       return {
         ...state,
         listService: action.listService
@@ -38,6 +47,23 @@ export default (state = initialState, action) => {
         ...state,
         listHistories: action.historyDatas,
       };
+    }
+    case SET_LIST_USER: {
+      return {
+        ...state,
+        listUsers: action.listUsers,
+      };
+    }
+    case SET_HISTORY_PARKING: {
+      return {
+        ...state,
+        listHistoriesParking: action.historyDatas,
+      };
+    }
+    case UPDATE_USER_ACOUNT_MONEY:{
+      let newUser = { ...state.userLogin };
+      newUser.balance = action.newMoney;
+      return { ...state, userLogin: newUser };
     }
     default: {
       return state;

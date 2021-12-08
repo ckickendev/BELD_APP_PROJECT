@@ -6,11 +6,13 @@ import { Provider } from "react-redux";
 import ReduxThunk from 'redux-thunk';
 
 import authReducer from "./store/reducers/auth";
+import serviceReducer from "./store/reducers/service";
 
 import NavigationContainer from "./navigation/NavigationContainer";
 
 const rootReducer = combineReducers({
-  auth: authReducer
+  auth: authReducer,
+  service: serviceReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));

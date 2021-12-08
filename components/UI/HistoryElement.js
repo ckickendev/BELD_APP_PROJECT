@@ -12,7 +12,6 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Color from "../../constants/Color";
 
 export default function HistoryElements(props) {
-  console.log("History ELEMnt: ", props);
   return (
     <View style={{ ...styles.card, ...props.style }}>
       <TouchableOpacity
@@ -40,10 +39,21 @@ export default function HistoryElements(props) {
           </View>
         </View>
         <View style={styles.right}>
-          <Text style={{ color: "red" }}>
-            {props.PosOrNeg}
-            {props.history.amount}(V)
-          </Text>
+          {props.domitory ? (
+            <Text style={styles.domitoryTitle}>{props.history.amount}</Text>
+          ) : (
+            <View>
+              <Text style={{ color: props.color }}>
+                {props.PosOrNeg}
+                {props.history.amount}(V)
+              </Text>
+              {props.history.status === 1 ? (
+                <Text style={{ color: props.color }}>Success</Text>
+              ) : (
+                <Text style={{ color: props.color }}>Processing</Text>
+              )}
+            </View>
+          )}
         </View>
       </TouchableOpacity>
     </View>
@@ -51,6 +61,20 @@ export default function HistoryElements(props) {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    shadowColor: "black",
+    shadowOffset: { width: 1, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 14,
+    elevation: 5,
+    borderRadius: 16,
+    paddingHorizontal: 20,
+    borderColor: "red",
+    backgroundColor: "white",
+    marginVertical: 10,
+    marginHorizontal: 30,
+    paddingVertical: 14,
+  },
   left: {
     alignItems: "center",
     width: "14%",
@@ -61,7 +85,6 @@ const styles = StyleSheet.create({
   },
   right: {
     width: "25%",
-
     alignItems: "flex-start",
   },
   stretch: {
@@ -78,18 +101,11 @@ const styles = StyleSheet.create({
   icon: {
     // width: '100%'
   },
-  card: {
-    shadowColor: "black",
-    shadowOffset: { width: 1, height: 2 },
-    shadowOpacity: 0.8,
-    shadowRadius: 14,
-    elevation: 5,
-    borderRadius: 16,
-    paddingHorizontal: 20,
-    borderColor: "red",
-    backgroundColor: "white",
-    marginVertical: 20,
-    marginHorizontal: 30,
-    paddingVertical: 14,
+
+  domitoryTitle: {
+    textAlign: "center",
+    color: "red",
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });

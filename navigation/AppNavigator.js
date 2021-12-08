@@ -1,9 +1,10 @@
-
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createStackNavigator } from "react-navigation-stack";
 
+import React, {Component} from 'react';
+
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { Platform } from "react-native";
+import { Platform, View } from "react-native";
 
 import AuthScreen from "../screens/user/AuthScreen";
 import StartUpScreen from "../screens/StartUpScreen";
@@ -11,17 +12,21 @@ import RegisterScreen from "../screens/user/RegisterScreen";
 
 import MainOverViewScreen from "../screens/beld/MainOverviewScreen";
 import HistoryViewScreen from "../screens/beld/HistoryScreen";
+import ServiceDetailScreen from "../components/ChildScreens/ServiceDetailScreen";
 
 import * as AuthAction from "../store/actions/auth";
 
 import Colors from "../constants/Color";
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/actions/auth";
 import WalletScreen from "../screens/beld/WalletScreen";
 import TopupMoney from "../screens/beld/TopupMoney";
 import TransferMoneyScreen from "../screens/beld/TransferMoneyScreen";
+import ParkingHistoryScreen from "../components/ChildScreens/ParkingHistoryScreen";
+import CardScreen from "../screens/beld/CardScreen";
+import Color from "../constants/Color";
 
 const defaultNavOption = {
   headerStyle: {
@@ -29,7 +34,6 @@ const defaultNavOption = {
   },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
 };
-
 
 const AuthNavigator = createStackNavigator(
   {
@@ -41,23 +45,98 @@ const AuthNavigator = createStackNavigator(
   }
 );
 
+const MainAppScreen = createStackNavigator(
+  {
+    MainApp: MainOverViewScreen,
+    ServiceDetail: ServiceDetailScreen,
+    ParkingHistory: ParkingHistoryScreen,
+  },
+  {
+    defaultNavigationOptions: {},
+  }
+);
+
 const AppNavigator = createBottomTabNavigator(
   {
-    Main: MainOverViewScreen,
-    History : HistoryViewScreen,
-    Topup: TopupMoney,
-    Transfer: TransferMoneyScreen,
-    Wallet: WalletScreen,
+    Main: {
+      screen: MainAppScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome5
+            style={[{ color: tintColor }]}
+            size={22}
+            name={"home"}
+          />
+        ),
+      },
+    },
+    History: {
+      screen: HistoryViewScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome5 style={[{ color: tintColor }]} size={22} name={"gem"} />
+        ),
+      },
+    },
+    Topup: {
+      screen: TopupMoney,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome5
+            style={[{ color: tintColor }]}
+            size={22}
+            name={"dollar-sign"}
+          />
+        ),
+      },
+    },
+    Transfer: {
+      screen: TransferMoneyScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome5
+            style={[{ color: tintColor }]}
+            size={22}
+            name={"exchange-alt"}
+          />
+        ),
+      },
+    },
+    Card: {
+      screen: CardScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome5
+            style={[{ color: tintColor }]}
+            size={22}
+            name={"address-card"}
+          />
+        ),
+      },
+    },
+    Wallet: {
+      screen: WalletScreen,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <FontAwesome5
+            style={[{ color: tintColor }]}
+            size={22}
+            name={"wallet"}
+          />
+        ),
+      },
+    },
   },
   {
     tabBarOptions: {
-      activeTintColor: "white",
-      color: 'blue',
+      inactiveTintColor: Color.success,
+      activeTintColor: Color.white,
       labelStyle: {
         fontSize: 12,
+        fontWeight: "bold",
       },
       style: {
-        backgroundColor: "red",
+        backgroundColor: Color.orangeFPT,
       },
     },
   }

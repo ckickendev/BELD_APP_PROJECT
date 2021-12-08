@@ -19,7 +19,6 @@ export default function WalletScreen() {
       <HeaderScreen wallet style={{ paddingBottom: 20, height: 250 }} />
       <CircleUser />
       <PersonalInfo user={userLogin} />
-      
     </View>
   );
 }

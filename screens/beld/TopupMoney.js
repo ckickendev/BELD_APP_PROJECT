@@ -2,14 +2,24 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import React from "react";
 import { useState } from "react";
 import { Button, StyleSheet, Text, View } from "react-native";
-import { FlatList, TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
-import Input from "../../components/UI/Input";
+import { useSelector } from "react-redux";
 
 import Color from "../../constants/Color";
+import * as serviceAction from "../../store/actions/service";
 
 export default function TopupMoney(props) {
   let [topUpAmount, SetTopUpAmount] = useState(0);
+
+  const userId = useSelector((state) => {
+    // console.log(state.auth);
+    return state.auth.userLogin.id;
+  });
+  const token = useSelector((state) => {
+    return state.auth.token;
+  });
+
   const changeValueHandler = (value) => {
     let newTopUp;
     if (String(value).localeCompare("remove") === 0) {
@@ -19,6 +29,11 @@ export default function TopupMoney(props) {
     }
     SetTopUpAmount(newTopUp);
   };
+
+  const sendRequestHandle = () => {
+    console.log("alo");
+    serviceAction.createTopupRequest(topUpAmount, userId, token);
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -43,7 +58,7 @@ export default function TopupMoney(props) {
         style={{
           textAlign: "center",
           fontSize: 18,
-          color: "red",
+          color: Color.orangeFPT,
           marginTop: 20,
         }}
       >
@@ -163,7 +178,7 @@ export default function TopupMoney(props) {
         <Button
           title="Send request"
           color="gray"
-          onPress={() => {}}
+          onPress={sendRequestHandle}
         />
       </View>
     </SafeAreaView>
@@ -179,7 +194,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     paddingHorizontal: 30,
     paddingVertical: 10,
-    borderColor: "orange",
+    borderColor: Color.orangeFPT,
     borderWidth: 2,
     borderRadius: 30,
   },

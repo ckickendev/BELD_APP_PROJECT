@@ -1,6 +1,7 @@
 import React, { useCallback, useReducer, useEffect } from "react";
 import {
   Alert,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,6 +14,7 @@ import * as AuthAction from "../../store/actions/auth";
 import { useDispatch } from "react-redux";
 import { useState } from "react/cjs/react.development";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Color from "../../constants/Color";
 
 const FORM_INPUT_UPDATE = "UPDATE";
 
@@ -92,7 +94,11 @@ export default function AuthScreen(props) {
   });
   return (
     <KeyboardAvoidingView style={styles.screen}>
-      <LinearGradient colors={["#ffedff", "#ffe3ff"]} style={styles.gradient}>
+      <LinearGradient colors={["#fff", "#fff"]} style={styles.gradient}>
+        <Image
+          style={styles.stretch}
+          source={require("../../assets/image/logoBeld2.png")}
+        />
         <View style={styles.ScrollView}>
           <ScrollView>
             <Input
@@ -126,29 +132,28 @@ export default function AuthScreen(props) {
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 title="LOGIN"
-                color="blue"
+                color={Color.orangeFPT}
                 onPress={authHandler}
                 style={styles.buttonLogin}
               >
-                <Text style={{ color: "white", fontSize: 18 }}>Login</Text>
+                <Text style={{ color: "white", fontSize: 18 }}>Log in</Text>
               </TouchableOpacity>
 
-              
               <TouchableOpacity
                 title="LOGIN"
-                color="blue"
+                color={Color.orangeFPT}
                 onPress={() => {
                   props.navigation.navigate("AppBELD");
                 }}
                 style={styles.buttonLogin}
               >
-                <Text style={{ color: "white", fontSize: 18 }}>Guess</Text>
+                <Text style={{ color: "white", fontSize: 18 }}>Guest</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.buttonContainer}>
               <TouchableOpacity style={{ alignItems: "center", marginTop: 10 }}>
                 <Text style={{ color: "#444" }}>
-                  Having Trouble logging in ?
+                  Have Trouble Logging In ?
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -202,12 +207,17 @@ const styles = StyleSheet.create({
   },
   buttonLogin: {
     marginTop: 20,
-    backgroundColor: "blue",
+    backgroundColor: Color.orangeFPT,
     width: "100%",
     height: 60,
     borderRadius: 25,
     fontSize: 18,
     alignItems: "center",
     justifyContent: "center",
+  },
+  stretch: {
+    width: "100%",
+    height: 100,
+    marginBottom: -30,
   },
 });

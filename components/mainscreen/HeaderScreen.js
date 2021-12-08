@@ -10,19 +10,16 @@ import {
 import { FontAwesome5 } from "@expo/vector-icons";
 import UserService from "../Service/UserService";
 import { useSelector } from "react-redux";
+import Color from "../../constants/Color";
 
 export default function HeaderScreen(props) {
   const userLogin = useSelector((state) => {
     return state.auth.userLogin;
   });
-  // console.log(userLogin);
-
   return (
     <ScrollView>
       <ImageBackground
-        source={{
-          uri: "https://st3.depositphotos.com/32032774/36825/v/450/depositphotos_368255430-stock-illustration-abstract-clean-red-mesh-gradient.jpg",
-        }}
+        source={{}}
         resizeMode="cover"
         style={{ ...styles.imageBackground, ...props.style }}
       >
@@ -36,7 +33,7 @@ export default function HeaderScreen(props) {
                   color="red"
                   size={25}
                 />
-                <Text style={styles.textUser}>
+                <Text style={{...styles.textUser, marginLeft: 20}}>
                   {userLogin === undefined ? "USER" : userLogin.fullname}
                 </Text>
               </TouchableOpacity>
@@ -45,7 +42,7 @@ export default function HeaderScreen(props) {
                   <FontAwesome5
                     style={styles.searchIcon}
                     name="search"
-                    color="red"
+                    color={Color.orangeFPT}
                     size={25}
                   />
                 </TouchableOpacity>
@@ -54,7 +51,16 @@ export default function HeaderScreen(props) {
           ) : (
             <View style={styles.header}>
               <TouchableOpacity style={{ alignItems: "center", width: "100%" }}>
-                <Text style={{ ...styles.textUser, alignSelf: "center", fontSize: 22, color: "yellow" }}>
+                <Text
+                  style={{
+                    ...styles.textUser,
+                    textAlign: "center",
+                    fontSize: 24,
+                    color: Color.white,
+                    
+                    // fontWeight: 'bold'
+                  }}
+                >
                   {userLogin === undefined ? "USER" : userLogin.fullname}
                 </Text>
               </TouchableOpacity>
@@ -85,6 +91,7 @@ const styles = StyleSheet.create({
   imageBackground: {
     width: "100%",
     height: 250,
+    backgroundColor: Color.orangeFPT,
   },
   header: {
     flexDirection: "row",
@@ -105,12 +112,11 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     borderRadius: 30,
     paddingTop: 12,
-    // paddingLeft: 4,
   },
   textUser: {
-    marginLeft: 10,
-    fontSize: 18,
-    color: "yellow",
+    // marginLeft: 20,
+    fontSize: 20,
+    color: Color.white,
   },
   searchIcon: {
     width: 50,
@@ -118,7 +124,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     textAlign: "center",
-    backgroundColor: "white",
+    backgroundColor: Color.white,
     borderRadius: 30,
     paddingTop: 12,
     // paddingLeft: 4,

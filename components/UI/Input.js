@@ -1,5 +1,6 @@
 import React, { useReducer, useEffect } from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
+import Color from "../../constants/Color";
 
 const INPUT_CHANGE = "INPUT_CHANGE";
 const INPUT_BLUR = "INPUT_BLUR";
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   errorText: {
-    color: "red",
+    color: Color.orangeFPT,
     fontSize: 13,
   },
 });

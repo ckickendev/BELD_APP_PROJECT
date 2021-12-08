@@ -8,7 +8,9 @@ import {
   Text,
   View,
 } from "react-native";
+import { color } from "react-native-reanimated";
 import { useDispatch, useSelector } from "react-redux";
+import Color from "../../constants/Color";
 import * as authAction from "../../store/actions/auth";
 import Card from "../UI/Card";
 
@@ -64,25 +66,18 @@ export default function Services(props) {
     );
   }
 
-  const selecItemService = () => {
-    // props.navigation.navigate({
-    //   routeName: "CategoryMeal",
-    //   params: { cateId: itemsData.item.id, title: itemsData.item.title },
-    // });
-  };
-
   const renderItemServices = (itemsData) => {
-    // console.log("itemsData", itemsData);
     return (
       <Card
-        onSelect={selecItemService}
-        color={itemsData.item.color}
+        service={itemsData.item}
+        color={Color.orangeFPT}
         style={styles.Card}
         name={itemsData.item.name}
         id={itemsData.item.id}
         count={itemsData.item.count}
         img={itemsData.item.img}
         price={itemsData.item.price}
+        selectItemService={props.selectItemService}
       />
     );
   };
@@ -100,7 +95,7 @@ export default function Services(props) {
 
 const styles = StyleSheet.create({
   FlatList: {
-    color: "red",
+    color: Color.red,
   },
   Card: {
     marginHorizontal: 30,
