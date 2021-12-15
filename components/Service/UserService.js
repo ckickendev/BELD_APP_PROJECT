@@ -6,7 +6,7 @@ import Color from "../../constants/Color";
 
 export default function UserService(props) {
   return (
-    <TouchableOpacity style={styles.userServiceContainer}>
+    <TouchableOpacity style={styles.userServiceContainer} >
       <FontAwesome5
         name={props.nameIcon}
         size={30}

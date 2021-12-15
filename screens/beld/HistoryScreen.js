@@ -8,6 +8,11 @@ import HistoryContent from "../../components/subScreens/HistoryContent";
 import Color from "../../constants/Color";
 
 export default function HistoryScreen(props) {
+  const changeNav = (item) => {
+    console.log(item);
+    props.navigation.navigate("HistoryDetail", {"history": item});
+  };
+
   const [actionBtn, setActionBtn] = useState(1);
   return (
     <SafeAreaView style={styles.container}>
@@ -18,7 +23,14 @@ export default function HistoryScreen(props) {
           alignItems: "center",
         }}
       >
-        <FontAwesome5 name="long-arrow-alt-left" color="red" size={28} onPress={() => {props.navigation.navigate("Main");}} />
+        <FontAwesome5
+          name="long-arrow-alt-left"
+          color="red"
+          size={28}
+          onPress={() => {
+            props.navigation.navigate("Main");
+          }}
+        />
         <Text style={{ fontSize: 24, color: Color.text }}>History</Text>
         <FontAwesome5 name="search" color="red" size={28} />
       </View>
@@ -66,7 +78,12 @@ export default function HistoryScreen(props) {
           </TouchableOpacity>
         )}
       </View>
-      <HistoryContent status={actionBtn} />
+      <HistoryContent
+        changeNav={(item) => {
+          changeNav(item);
+        }}
+        status={actionBtn}
+      />
     </SafeAreaView>
   );
 }
@@ -77,7 +94,7 @@ const styles = StyleSheet.create({
   },
   action: {
     marginTop: 30,
-    marginBottom: 50  ,
+    marginBottom: 50,
     marginHorizontal: 60,
     backgroundColor: "#ddd",
     flexDirection: "row",
@@ -101,6 +118,7 @@ const styles = StyleSheet.create({
 });
 HistoryScreen.navigationOptions = (nav) => {
   return {
-    headerTitle: "Alo",
+    headerShown: false,
+    backgroundColor: Color.orangeFPT
   };
 };

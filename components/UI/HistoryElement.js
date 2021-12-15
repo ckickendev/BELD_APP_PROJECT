@@ -9,12 +9,15 @@ import {
   View,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { NavigationActions } from "react-navigation";
+import { useDispatch } from "react-redux";
 import Color from "../../constants/Color";
 
 export default function HistoryElements(props) {
   return (
     <View style={{ ...styles.card, ...props.style }}>
       <TouchableOpacity
+        onPress={props.changeNav}
         style={{
           justifyContent: "space-between",
           flexDirection: "row",
@@ -59,6 +62,7 @@ export default function HistoryElements(props) {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   card: {

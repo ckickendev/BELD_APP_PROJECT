@@ -95,9 +95,12 @@ export default function HistoryContent(props) {
         let PosOrNeg = itemData.item.type === 1 ? "-" : "+";
         return (
           <HistoryElements
+            changeNav={() => {
+              props.changeNav(itemData.item);
+            }}
             PosOrNeg={PosOrNeg}
             nameIcon={numIcon}
-            color={ itemData.item.status === 1 ? Color.success : Color.red}
+            color={itemData.item.status === 1 ? Color.success : Color.red}
             history={itemData.item}
           />
         );

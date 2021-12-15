@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Color from "../../constants/Color";
 import * as authAction from "../../store/actions/auth";
 import Card from "../UI/Card";
+import { logout } from "../../store/actions/auth";
 
 export default function Services(props) {
   const [isLoading, setIsLoading] = useState(false);
@@ -96,6 +97,7 @@ export default function Services(props) {
 const styles = StyleSheet.create({
   FlatList: {
     color: Color.red,
+    // paddingBottom: 100
   },
   Card: {
     marginHorizontal: 30,

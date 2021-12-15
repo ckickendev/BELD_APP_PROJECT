@@ -1,18 +1,22 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import React, { useEffect } from "react";
-import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { Button, Image, ImageBackground, StyleSheet, Text, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import HeaderScreen from "../../components/mainscreen/HeaderScreen";
 import SpaceMoney from "../../components/mainscreen/SpaceMoney";
 import PersonalInfo from "../../components/subScreens/PersonalInfo";
 import Card from "../../components/UI/Card";
 import CircleUser from "../../components/UI/CircleUser";
+import { logout } from "../../store/actions/auth";
+
 
 export default function WalletScreen() {
   const userLogin = useSelector((state) => {
     return state.auth.userLogin;
   });
+  const dispatch = useDispatch();
+  
   console.log("UserLogin: ", userLogin);
   return (
     <View style={styles.screen}>

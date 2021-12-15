@@ -27,12 +27,15 @@ import TransferMoneyScreen from "../screens/beld/TransferMoneyScreen";
 import ParkingHistoryScreen from "../components/ChildScreens/ParkingHistoryScreen";
 import CardScreen from "../screens/beld/CardScreen";
 import Color from "../constants/Color";
+import HistoryContent from "../components/subScreens/HistoryContent";
+import TransactionDetails from "../components/ChildScreens/TransactionDetails";
+import HistoryScreen from "../screens/beld/HistoryScreen";
 
 const defaultNavOption = {
   headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.primary : "white",
+    backgroundColor: Platform.OS === "android" ? Colors.orangeFPT : "white",
   },
-  headerTintColor: Platform.OS === "android" ? "white" : Colors.primary,
+  headerTintColor: Platform.OS === "android" ? "white" : Colors.orangeFPT,
 };
 
 const AuthNavigator = createStackNavigator(
@@ -56,6 +59,11 @@ const MainAppScreen = createStackNavigator(
   }
 );
 
+const HistoryScreenStack = createStackNavigator({
+  History: HistoryViewScreen,
+  HistoryDetail: TransactionDetails,
+});
+
 const AppNavigator = createBottomTabNavigator(
   {
     Main: {
@@ -71,7 +79,7 @@ const AppNavigator = createBottomTabNavigator(
       },
     },
     History: {
-      screen: HistoryViewScreen,
+      screen: HistoryScreenStack,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
           <FontAwesome5 style={[{ color: tintColor }]} size={22} name={"gem"} />
@@ -129,8 +137,8 @@ const AppNavigator = createBottomTabNavigator(
   },
   {
     tabBarOptions: {
-      inactiveTintColor: Color.success,
-      activeTintColor: Color.white,
+      inactiveTintColor: Color.white,
+      activeTintColor: Color.success,
       labelStyle: {
         fontSize: 12,
         fontWeight: "bold",

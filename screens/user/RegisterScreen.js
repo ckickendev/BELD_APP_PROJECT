@@ -15,6 +15,7 @@ import * as AuthAction from "../../store/actions/auth";
 import { useDispatch } from "react-redux";
 import { useState } from "react/cjs/react.development";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import Color from "../../constants/Color";
 
 const FORM_INPUT_UPDATE = "UPDATE";
 
@@ -187,7 +188,7 @@ export default function AuthScreen(props) {
             <View style={styles.buttonContainer}>
               <TouchableOpacity
                 title="REGISTER"
-                color="blue"
+                color={Color.orangeFPT}
                 onPress={authHandler}
                 style={styles.buttonLogin}
               >
@@ -204,6 +205,7 @@ export default function AuthScreen(props) {
 AuthScreen.navigationOptions = (navData) => {
   return {
     headerTitle: "Register",
+    backgroundColor: Color.orangeFPT
   };
 };
 
@@ -235,7 +237,7 @@ const styles = StyleSheet.create({
   },
   buttonLogin: {
     marginTop: 20,
-    backgroundColor: "blue",
+    backgroundColor: Color.orangeFPT,
     width: "100%",
     height: 60,
     borderRadius: 25,

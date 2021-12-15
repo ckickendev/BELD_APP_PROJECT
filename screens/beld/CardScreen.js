@@ -17,6 +17,9 @@ import Color from "../../constants/Color";
 
 export default function CardScreen() {
   const userLogin = useSelector((state) => {
+    if (!state.auth.userLogin.studentId) {
+      return { studentId: "0" };
+    }
     return state.auth.userLogin;
   });
   console.log("UserLogin: ", userLogin);
@@ -24,38 +27,47 @@ export default function CardScreen() {
     <View style={styles.screen}>
       <HeaderScreen wallet style={{ paddingBottom: 20, height: 250 }} />
       <ScrollView style={styles.scollView}>
-        <ImageBackground
-          style={styles.stretch}
-          source={require("../../assets/image/frontCard.png")}
-        >
-          {userLogin.studentId.localeCompare("DE150068") === 0 ? (
-            <Image
-              style={styles.imgcard}
-              source={require("../../assets/image/DE150356.png")}
-            />
-          ) : (
-            <Image
-              style={styles.imgcard}
-              source={{
-                uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPyGNr2qL63Sfugk2Z1-KBEwMGOfycBribew&usqp=CAU",
-              }}
-            />
-          )}
+        {userLogin.studentId == undefined ? (
+          ""
+        ) : (
+          <ImageBackground
+            style={styles.stretch}
+            source={require("../../assets/image/frontCard.png")}
+          >
+            {userLogin.studentId.localeCompare("DE150068") === 0 ? (
+              <Image
+                style={styles.imgcard}
+                source={require("../../assets/image/DE150356.png")}
+              />
+            ) : (
+              <Image
+                style={styles.imgcard}
+                source={{
+                  uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPyGNr2qL63Sfugk2Z1-KBEwMGOfycBribew&usqp=CAU",
+                }}
+              />
+            )}
 
-          <View style={styles.textStudentId}>
-            <Text>{userLogin.studentId}</Text>
-          </View>
-          <View style={styles.textFullname}>
-            <Text
-              style={{ fontSize: 18, fontWeight: "bold", color: Color.primary }}
-            >
-              {userLogin.fullname}
-            </Text>
-          </View>
-          <Text style={styles.se}>Software Engineering</Text>
-          <Text style={styles.year}>2019</Text>
-          <Text style={styles.yeardate}>Oct, 2023</Text>
-        </ImageBackground>
+            <View style={styles.textStudentId}>
+              <Text>{userLogin.studentId}</Text>
+            </View>
+            <View style={styles.textFullname}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "bold",
+                  color: Color.primary,
+                }}
+              >
+                {userLogin.fullname}
+              </Text>
+            </View>
+            <Text style={styles.se}>Software Engineering</Text>
+            <Text style={styles.year}>2019</Text>
+            <Text style={styles.yeardate}>Oct, 2023</Text>
+          </ImageBackground>
+        )}
+
         <ImageBackground
           style={styles.stretch}
           source={require("../../assets/image/backCard.png")}

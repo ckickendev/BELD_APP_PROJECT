@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react/cjs/react.development";
 import Color from "../../constants/Color";
 import * as serviceAction from "../../store/actions/service";
+import CanteenSlot from "../UI/CanteenSlot";
 import Card from "../UI/Card";
 
 export default function ListCanteenScreen(props) {
@@ -68,7 +69,7 @@ export default function ListCanteenScreen(props) {
         renderItem={(itemsData) => {
           // console.log("Render FL: ", itemsData.item);
           return (
-            <Card
+            <CanteenSlot
               canteens
               service={itemsData.item}
               color={Color.primary}

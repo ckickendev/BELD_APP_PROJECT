@@ -9,24 +9,21 @@ import { logout } from "../../store/actions/auth";
 
 export default function MainScreen(props) {
   const dispatch = useDispatch();
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
   const goToTopUp = () => {
     props.navigation.navigate("Topup");
   };
   const selectItemService = (service) => {
     console.log(service);
-    props.navigation.navigate("ServiceDetail", {service : service });
+    props.navigation.navigate("ServiceDetail", { service: service });
   };
   return (
     <View style={styles.screen}>
-      <HeaderScreen style={{ height: 400 }} />
+      <HeaderScreen logoutHandler={logoutHandler} style={{ height: 400 }} />
       <SpaceMoney goToTopUp={goToTopUp} />
       <Services selectItemService={selectItemService} />
-      <Button
-        title="Logout"
-        onPress={() => {
-          dispatch(logout());
-        }}
-      />
     </View>
   );
 }
@@ -35,10 +32,13 @@ const styles = StyleSheet.create({
   screen: {
     flex: 1,
   },
+  button: {
+    padding: 30,
+  },
 });
 
 MainScreen.navigationOptions = (navData) => {
   return {
     headerShown: false,
   };
-}
+};

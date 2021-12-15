@@ -129,7 +129,7 @@ export const createTransferRequest = async (
         idTo: chooseIdNe,
         name: "Transfer money",
         service: 1,
-        status: 0,
+        status: 1,
         type: 1,
       }),
     }

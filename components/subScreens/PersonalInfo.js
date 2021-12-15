@@ -1,12 +1,16 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Button, StyleSheet, Text, View } from "react-native";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import Color from "../../constants/Color";
 import Box from "../UI/Box";
 
+import { logout } from "../../store/actions/auth";
+import { useDispatch } from "react-redux";
+
 export default function PersonalInfo(props) {
+  const dispatch = useDispatch();
   return (
-    <View>
+    <ScrollView>
       <View style={styles.infoWrapper}>
         <Text style={{ fontSize: 12 }}>Personal Info</Text>
         <View style={styles.textContainer}>
@@ -36,12 +40,18 @@ export default function PersonalInfo(props) {
             <Text style={styles.change}>Change</Text>
           </TouchableOpacity>
         </View>
+        {/* <Button
+          title="Log out"
+          onPress={() => {
+            dispatch(logout());
+          }}
+        /> */}
       </View>
       <ScrollView style={styles.infoWrapper}>
         <Text style={{ fontSize: 12, marginBottom: 20 }}>My banking Info</Text>
         <Box PersonalInfo user={props.user} />
       </ScrollView>
-    </View>
+    </ScrollView>
   );
 }
 
@@ -52,7 +62,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 16,
+    marginVertical: 10,
     alignItems: "center",
   },
   textTitle: {

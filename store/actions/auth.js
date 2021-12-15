@@ -202,10 +202,10 @@ export const setUserLogin = (email, idToken, localId, expirationDate) => {
         `https://beldproapp-default-rtdb.firebaseio.com/users.json`
       );
       const resData = await response.json();
-      console.log("resData", resData);
+      // console.log("resData", resData);
       let userLogin = {};
       for (const key in resData) {
-        console.log("resData[key], email" + resData[key].email, email);
+        // console.log("resData[key], email" + resData[key].email, email);
         if (resData[key].email.localeCompare(email) === 0) {
           userLogin = new User(
             key,
@@ -292,7 +292,7 @@ export const fetchHistory = () => {
           resData[key].idFrom.localeCompare(userId) === 0 ||
           resData[key].idTo.localeCompare(userId) === 0
         ) {
-          console.log("key", key, resData[key].idFrom, resData[key].idTo);
+          // console.log("key", key, resData[key].idFrom, resData[key].idTo);
           await historyDatas.push(
             new History(
               key,
@@ -308,7 +308,7 @@ export const fetchHistory = () => {
           );
         }
       }
-      await console.log("historyDatas: ", historyDatas);
+      // await console.log("historyDatas: ", historyDatas);
       await dispatchEvent({ type: SET_HISTORY, historyDatas: historyDatas });
     } catch (err) {
       throw err;
@@ -326,7 +326,7 @@ export const fetchHistoryParking = () => {
 
       const resData = await response.json();
       const historyDatas = [];
-      console.log("resData", resData);
+      // console.log("resData", resData);
 
       for (const key in resData) {
         if (
@@ -348,7 +348,7 @@ export const fetchHistoryParking = () => {
           );
         }
       }
-      console.log("historyDatas", historyDatas);
+      // console.log("historyDatas", historyDatas);
       dispatchEvent({ type: SET_HISTORY_PARKING, historyDatas: historyDatas });
     } catch (err) {
       throw err;
@@ -380,7 +380,7 @@ export const fetchUsers = () => {
           )
         );
       }
-      console.log("List user truoc khi set: ", listUsers);
+      // console.log("List user truoc khi set: ", listUsers);
       dispatch({
         type: SET_LIST_USER,
         listUsers: listUsers,

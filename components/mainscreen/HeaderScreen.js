@@ -9,13 +9,17 @@ import {
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import UserService from "../Service/UserService";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Color from "../../constants/Color";
+
+import { logout } from "../../store/actions/auth";
+
 
 export default function HeaderScreen(props) {
   const userLogin = useSelector((state) => {
     return state.auth.userLogin;
   });
+  const dispatch = useDispatch();
   return (
     <ScrollView>
       <ImageBackground
@@ -33,7 +37,7 @@ export default function HeaderScreen(props) {
                   color="red"
                   size={25}
                 />
-                <Text style={{...styles.textUser, marginLeft: 20}}>
+                <Text style={{ ...styles.textUser, marginLeft: 20 }}>
                   {userLogin === undefined ? "USER" : userLogin.fullname}
                 </Text>
               </TouchableOpacity>
@@ -57,7 +61,7 @@ export default function HeaderScreen(props) {
                     textAlign: "center",
                     fontSize: 24,
                     color: Color.white,
-                    
+
                     // fontWeight: 'bold'
                   }}
                 >
@@ -78,6 +82,20 @@ export default function HeaderScreen(props) {
             />
             <UserService nameIcon="wallet" nameService="Get money" />
             <UserService nameIcon="money-check" nameService="Connect Card" />
+            <TouchableOpacity
+              style={styles.userServiceContainer}
+              onPress={() => {
+                props.logoutHandler();
+              }}
+            >
+              <FontAwesome5
+                name="walking"
+                size={30}
+                color={Color.white}
+                style={styles.nameIcon}
+              />
+              <Text style={styles.nameService}>Logout</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </ImageBackground>
@@ -134,5 +152,19 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-evenly",
+  },
+
+  userServiceContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 20,
+  },
+  nameIcon: {
+    // backgroundColor: "white",
+  },
+  nameService: {
+    fontSize: 12,
+    fontWeight: "400",
+    color: "white",
   },
 });
