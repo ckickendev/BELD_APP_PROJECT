@@ -9,21 +9,34 @@ import {
   View,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { NavigationActions } from "react-navigation";
 import Color from "../../constants/Color";
 
 export default function CanteenSlot(props) {
-  const onBuyTicket = () => {
-    console.log("Dmm");
+  const onBuyTicket = (service) => {
+    console.log("Service:", service);
+    props.onBuyTicket(service);
   };
   return (
     <TouchableOpacity
       style={{ ...styles.card, ...props.style }}
       onPress={() => {
         props.selectItemService(props.service);
-        Alert.alert("Confirm!", "Do you want to purchase", [
-          { text: "Cancel" },
-          { text: "OK", onPress: onBuyTicket },
-        ]);
+        Alert.alert(
+          "Confirm!",
+          `Do you want to purchase, Price: ${props.price} `,
+          [
+            { text: "Cancel"},
+            { text: "OK", onPress: () => onBuyTicket(props.service) },
+          ],
+          {
+            cancelable: true,
+            onDismiss: () =>
+              Alert.alert(
+                "This alert was dismissed by tapping outside of the alert dialog."
+              ),
+          }
+        );
       }}
     >
       <ImageBackground

@@ -58,6 +58,7 @@ export default function PersonalInfo(props) {
 const styles = StyleSheet.create({
   infoWrapper: {
     padding: 20,
+    paddingBottom: 0,
   },
   textContainer: {
     flexDirection: "row",

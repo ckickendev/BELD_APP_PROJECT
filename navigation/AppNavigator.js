@@ -25,6 +25,7 @@ import WalletScreen from "../screens/beld/WalletScreen";
 import TopupMoney from "../screens/beld/TopupMoney";
 import TransferMoneyScreen from "../screens/beld/TransferMoneyScreen";
 import ParkingHistoryScreen from "../components/ChildScreens/ParkingHistoryScreen";
+import TicketScreen from "../components/ChildScreens/TicketScreen";
 import CardScreen from "../screens/beld/CardScreen";
 import Color from "../constants/Color";
 import HistoryContent from "../components/subScreens/HistoryContent";
@@ -53,6 +54,7 @@ const MainAppScreen = createStackNavigator(
     MainApp: MainOverViewScreen,
     ServiceDetail: ServiceDetailScreen,
     ParkingHistory: ParkingHistoryScreen,
+    Ticket: TicketScreen,
   },
   {
     defaultNavigationOptions: {},

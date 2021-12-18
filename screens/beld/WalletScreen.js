@@ -1,6 +1,14 @@
 import { FontAwesome5 } from "@expo/vector-icons";
 import React, { useEffect } from "react";
-import { Button, Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import {
+  Alert,
+  Button,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderScreen from "../../components/mainscreen/HeaderScreen";
@@ -10,19 +18,27 @@ import Card from "../../components/UI/Card";
 import CircleUser from "../../components/UI/CircleUser";
 import { logout } from "../../store/actions/auth";
 
-
 export default function WalletScreen() {
   const userLogin = useSelector((state) => {
     return state.auth.userLogin;
   });
   const dispatch = useDispatch();
-  
+
+  const onLostCard = () => {
+    Alert.alert("Warning!", "Action will lock your account forever !", [
+      { text: "Cancel" },
+      { text: "Confirm" },
+    ]);
+  };
   console.log("UserLogin: ", userLogin);
   return (
     <View style={styles.screen}>
       <HeaderScreen wallet style={{ paddingBottom: 20, height: 250 }} />
       <CircleUser />
       <PersonalInfo user={userLogin} />
+      <View style={styles.lostCard}>
+        <Button onPress={onLostCard} title="Request lock card" />
+      </View>
     </View>
   );
 }
@@ -53,5 +69,9 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingTop: 12,
     // paddingLeft: 4,
+  },
+  lostCard: {
+    marginHorizontal: 20,
+    borderRadius: 10,
   },
 });

@@ -61,6 +61,8 @@ export default function ListCanteenScreen(props) {
       </View>
     );
   }
+
+  
   return (
     <SafeAreaView style={{paddingBottom: 140}}>
       <FlatList
@@ -70,6 +72,7 @@ export default function ListCanteenScreen(props) {
           // console.log("Render FL: ", itemsData.item);
           return (
             <CanteenSlot
+              onBuyTicket = { (canteenInfo) => {props.onBuyTicket(canteenInfo)}}
               canteens
               service={itemsData.item}
               color={Color.primary}

@@ -83,7 +83,6 @@ export const signup = (email, password, mssv, fullname) => {
             }
           );
           const resData = await response.json();
-          // console.log("resData 2: ", resData);
         } catch (error) {
           throw error;
         }
@@ -285,15 +284,14 @@ export const fetchHistory = () => {
       );
 
       const resData = await response.json();
-      console.log(resData);
-      const historyDatas = [];
+      let historyDatas = [] ;
       for (const key in resData) {
+        console.log("key", key);
         if (
           resData[key].idFrom.localeCompare(userId) === 0 ||
           resData[key].idTo.localeCompare(userId) === 0
         ) {
-          // console.log("key", key, resData[key].idFrom, resData[key].idTo);
-          await historyDatas.push(
+          historyDatas.push(
             new History(
               key,
               resData[key].idFrom,
@@ -306,9 +304,12 @@ export const fetchHistory = () => {
               resData[key].status
             )
           );
+          // console.log(historyDatas);
+        } else{
+          // console.log("alo2");
         }
       }
-      // await console.log("historyDatas: ", historyDatas);
+      await console.log("historyDatas", historyDatas);
       await dispatchEvent({ type: SET_HISTORY, historyDatas: historyDatas });
     } catch (err) {
       throw err;

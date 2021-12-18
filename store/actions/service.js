@@ -176,5 +176,30 @@ const updateRecieve = async (chooseIdNe, newAmountRecieve, token) => {
   );
   const resData = await response.json();
   console.log("Recieve: ", resData);
-  
+};
+
+export const addTicket = async (amount, userId, token, newAmountSend) => {
+  const response = await fetch(
+    `https://beldproapp-default-rtdb.firebaseio.com/histories.json?auth=${token}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({
+        amount: amount,
+        date: new Date().toISOString(),
+        idFrom: userId,
+        idTo: "0",
+        name: "Buy ticket",
+        service: 1,
+        status: 1,
+        type: 1,
+      }),
+    }
+  );
+  const resData = await response.json();
+  console.log(resData);
+  await updateSendAccount(userId, newAmountSend, token);
+  await updateRecieve(chooseIdNe, newAmountRecieve, token);
 };

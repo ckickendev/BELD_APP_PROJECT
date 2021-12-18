@@ -6,6 +6,9 @@ import ListCanteenScreen from "./ListCanteenScreen";
 import ListDormitoryHistory from "./ListDormitoryHistory";
 
 export default function ServiceDetailScreen(props) {
+  const onBuyTicket = (canteenInfo) => {
+    props.navigation.navigate("Ticket", { "canteenInfo": canteenInfo });
+  };
   const service = props.navigation.getParam("service");
   const renderServices = () => {
     console.log("service.id: ", service.id);
@@ -13,7 +16,9 @@ export default function ServiceDetailScreen(props) {
       return (
         <View>
           <Text style={styles.title}>List Canteen You Can Choose </Text>
-          <ListCanteenScreen />
+          <ListCanteenScreen
+            onBuyTicket={(canteenInfo) => {onBuyTicket(canteenInfo)} }
+          />
         </View>
       );
     } else if (service.id.localeCompare("-1") === 0) {
