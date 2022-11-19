@@ -13,7 +13,6 @@ export default function TopupMoney(props) {
   let [topUpAmount, SetTopUpAmount] = useState(0);
 
   const userId = useSelector((state) => {
-    // console.log(state.auth);
     return state.auth.userLogin.id;
   });
   const token = useSelector((state) => {

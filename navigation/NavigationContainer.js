@@ -7,7 +7,6 @@ import AppNavigator from "./AppNavigator";
 export default function NavigationContainer(props) {
   const navRef = useRef();
   const isAuth = useSelector((state) => {
-    // console.log(state.auth);
     return !!state.auth.token;
   });
   useEffect(() => {

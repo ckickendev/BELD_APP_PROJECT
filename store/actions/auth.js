@@ -30,6 +30,7 @@ export const signup = (email, password, mssv, fullname) => {
       "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyBGfoaZXknZIm52oE4y-ncL19lbY7gggLg",
       {
         method: "POST",
+        mode: 'no-cors',
         headers: {
           "Content-type": "application/json",
         },
